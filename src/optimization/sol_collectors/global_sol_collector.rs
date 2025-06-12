@@ -57,7 +57,7 @@ impl GlobalSolCollector {
 
     pub fn monitor(&mut self, gdrr_thread_handlers: Vec<thread::JoinHandle<()>>) {
         let start_time = time::Instant::now();
-        let max_run_time = self.config.max_run_time.unwrap_or(usize::MAX);
+        let max_run_time = self.config.max_run_time.unwrap_or(f64::MAX);
         let running = Arc::new(AtomicBool::new(true));
         let r = running.clone();
 
@@ -66,13 +66,14 @@ impl GlobalSolCollector {
         }).expect("Error setting Ctrl-C handler");
 
         while running.load(atomic::Ordering::SeqCst) &&
-            (time::Instant::now() - start_time).as_secs() < max_run_time as u64 {
+            (time::Instant::now() - start_time).as_micros() < (max_run_time*1000000.) as u128 {
             thread::sleep(MONITOR_INTERVAL);
-
+            println!("{}",(time::Instant::now() - start_time).as_micros());
             while let Ok(message) = self.rx_solution_report.try_recv() {
                 match message {
                     SolutionReportMessage::NewCompleteSolution(thread_name, solution) => {
                         self.report_new_complete_solution(thread_name, solution);
+                        if self.config.terminate_after_find_complete_solution {running.store(false, atomic::Ordering::SeqCst);}
                     }
                     SolutionReportMessage::NewIncompleteStats(thread_name, stats) => {
                         self.report_new_incomplete_cost(thread_name, stats);

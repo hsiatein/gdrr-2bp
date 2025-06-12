@@ -52,7 +52,7 @@ fn main() {
     timed_println!("Config file loaded: {}", serde_json::to_string(&config).unwrap());
 
     let instance = parser::generate_instance(&mut json_instance, &config);
-    timed_println!("Starting optimization of {} parts of {} different types for {} seconds", instance.total_part_qty(), instance.parts().len(), config.max_run_time.unwrap_or(usize::MAX));
+    timed_println!("Starting optimization of {} parts of {} different types for {} seconds", instance.total_part_qty(), instance.parts().len(), config.max_run_time.unwrap_or(f64::MAX));
     timed_println!("Press Ctrl+C to terminate manually");
 
     let instance = Arc::new(instance);

@@ -1,10 +1,11 @@
 {
-  "maxRunTime": 600,
+  "maxRunTime": 1,
   "nThreads": 4,
   "rotationAllowed": true,
   "avgNodesRemoved": 6,
   "blinkRate": 0.01,
   "leftoverValuationPower": 2,
   "historyLength": 500,
-  "sheetValuationMode": "area"
+  "sheetValuationMode": "area",
+  "terminateAfterFindCompleteSolution": true
 }

@@ -131,7 +131,7 @@ impl<'a> LocalSolCollector<'a> {
                 if !self.best_complete_transferred {
                     let thread_name = std::thread::current().name().unwrap().parse().unwrap();
                     let sendable_solution = SendableSolution::new(self.instance.clone(), &best_complete_solution);
-                    //timed_thread_println!("{}", "Sending full solution".green());
+                    // timed_thread_println!("{}", "Sending full solution".green());
                     self.tx_solution_report.send(
                         SolutionReportMessage::NewCompleteSolution(thread_name, sendable_solution)
                     ).expect("Failed to send solution report message");

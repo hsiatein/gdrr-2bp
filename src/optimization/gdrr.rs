@@ -52,6 +52,9 @@ impl<'a> GDRR<'a> {
 
     // Late Acceptance Hill Climbing metaheuristic
     pub fn lahc(&'a mut self) {
+        // timed_thread_println!("{}",
+        //         "GDRR start".bright_magenta()
+        // );
         let start_time = std::time::Instant::now();
 
         let max_rr_iterations = self.config.max_rr_iterations.unwrap_or(usize::MAX);
@@ -79,7 +82,7 @@ impl<'a> GDRR<'a> {
             };
 
             self.recreate(mat_limit_budget, max_part_area_not_included);
-
+            // timed_thread_println!("{}{}", "迭代次数: ".green(),n_iterations);
             let cost = self.problem.cost();
 
             if (self.cost_comparator)(&cost, lahc_history.front().unwrap()) <= Ordering::Equal ||

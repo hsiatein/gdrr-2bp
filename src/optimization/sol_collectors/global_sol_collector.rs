@@ -73,7 +73,10 @@ impl GlobalSolCollector {
                 match message {
                     SolutionReportMessage::NewCompleteSolution(thread_name, solution) => {
                         self.report_new_complete_solution(thread_name, solution);
-                        if self.config.terminate_after_find_complete_solution {running.store(false, atomic::Ordering::SeqCst);}
+                        if self.config.terminate_after_find_complete_solution {
+                            running.store(false, atomic::Ordering::SeqCst);
+                            break;
+                        }
                     }
                     SolutionReportMessage::NewIncompleteStats(thread_name, stats) => {
                         self.report_new_incomplete_cost(thread_name, stats);

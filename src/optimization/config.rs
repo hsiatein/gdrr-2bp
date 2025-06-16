@@ -17,6 +17,7 @@ pub struct Config {
     pub sheet_valuation_mode : SheetValuationMode,
     pub max_stages: Option<u8>,
     pub terminate_after_find_complete_solution: bool,
+    pub optimize_cut_count: bool,
 }
 
 #[derive(Serialize, Deserialize)]

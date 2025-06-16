@@ -67,6 +67,7 @@ pub fn generate_json_solution(json_instance: &JsonInstance, solution: &SendableS
         .sorted_by(|a, b| { a.usage().partial_cmp(&b.usage()).unwrap().reverse() })
         .map(|l| { convert_layout_to_json_cp(l) }
         ).collect::<Vec<JsonCP>>();
+    let cut_count = cutting_patterns.iter().map(|e|{e.cut_count}).sum();
 
     let statistics = JsonSolutionStats {
         usage_pct: (solution.usage() * 100.0) as f32,
@@ -75,6 +76,7 @@ pub fn generate_json_solution(json_instance: &JsonInstance, solution: &SendableS
         material_cost: solution.cost().material_cost,
         run_time_ms: crate::EPOCH.elapsed().as_millis() as usize,
         config_path: config_path.to_str().unwrap().to_string(),
+        cut_count
     };
 
     JsonSolution {
@@ -95,6 +97,7 @@ pub fn convert_layout_to_json_cp(layout: &SendableLayout) -> JsonCP {
         object,
         root,
         usage,
+        cut_count: layout.cut_count()
     }
 }
 

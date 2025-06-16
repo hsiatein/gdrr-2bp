@@ -18,11 +18,11 @@ pub struct JsonSolution {
     pub sheettypes: Vec<JsonSheetType>,
     #[serde(rename = "Items")]
     pub parttypes: Vec<JsonPartType>,
-    #[serde(rename = "CuttingPatterns")]
-    pub cutting_patterns: Vec<JsonCP>,
     #[serde(rename = "Statistics")]
     pub statistics: JsonSolutionStats,
-
+    #[serde(rename = "CuttingPatterns")]
+    pub cutting_patterns: Vec<JsonCP>,
+    
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -52,6 +52,7 @@ pub struct JsonPartType {
 pub struct JsonCP {
     pub object: usize,
     pub usage: f64,
+    pub cut_count: u32,
     pub root: JsonCPNode,
 }
 
@@ -91,6 +92,7 @@ pub struct JsonSolutionStats {
     pub part_area_included_pct: f32,
     pub n_objects_used: usize,
     pub material_cost: u64,
+    pub cut_count: u32,
     pub run_time_ms: usize,
     pub config_path: String,
 }

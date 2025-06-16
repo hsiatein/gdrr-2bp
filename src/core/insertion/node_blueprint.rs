@@ -78,6 +78,22 @@ impl NodeBlueprint {
         }
     }
 
+    pub fn calculate_cut_count(&self) -> u32{
+        let mut openlist=Vec::new();
+        openlist.push(self);
+        let mut count=0;
+        while !openlist.is_empty() {
+            let u = openlist.pop().expect("openlist is empty");
+            if !(!u.children().is_empty() && u.parttype_id()==None) {
+                count+=1;
+            }
+            for child in u.children() {
+                openlist.push(child);
+            }
+        }
+        count-1
+    }
+
     pub fn is_empty(&self) -> bool {
         self.parttype_id.is_none() && self.children.is_empty()
     }

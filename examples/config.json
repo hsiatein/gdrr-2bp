@@ -7,5 +7,6 @@
   "leftoverValuationPower": 2,
   "historyLength": 500,
   "sheetValuationMode": "area",
-  "terminateAfterFindCompleteSolution": true
+  "terminateAfterFindCompleteSolution": true,
+  "optimizeCutCount": true
 }
